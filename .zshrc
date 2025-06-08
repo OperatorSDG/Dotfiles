@@ -102,3 +102,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="nvim ~/.zshrc"
 # alias ohmyzsh="nvim ~/.oh-my-zsh"
+#
+# Start ssh-agent and add key if not already loaded
+SSH_KEY="$HOME/.sshkey"
+
+# Start ssh-agent if not already running
+if [ -z "$SSH_AUTH_SOCK" ] || ! ssh-add -l >/dev/null 2>&1; then
+    eval "$(ssh-agent -s)" >/dev/null 2>&1
+    ssh-add "$SSH_KEY" >/dev/null 2>&1
+fi
